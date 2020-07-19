@@ -3,9 +3,25 @@ import * as yup from "yup";
 
 
 const formSchema = yup.object().shape({
-    name: yup.string().required("Name is a required"),                              
-    toppings: yup.boolean().oneOf([true], "please choose a topping"),
-    special_instructions: yup.string().required("enter none if no special instructions")
+    name: yup
+    .string()
+    .min(2,"name must be at least 2 characters long")
+    .required("Name is a required"),                              
+    ham: yup
+    .boolean()
+    .oneOf([true], "please choose a topping"),
+    pineapple: yup
+    .boolean()
+    .oneOf([true], "please choose a topping"),
+    sausage: yup
+    .boolean()
+    .oneOf([true], "please choose a topping"),
+    pepperoni: yup
+    .boolean()
+    .oneOf([true], "please choose a topping"),
+    special_instructions: yup
+    .string()
+    .required("enter none if no special instructions")
 })
 
 
@@ -18,7 +34,7 @@ function Form (props) {
     special_instructions:""
     });
 
-    const[errrors, setErrrors] = useState({
+    const[errors, setErrors] = useState({
     name:"",
     toppings:"",
     special_instructions:""
@@ -33,17 +49,37 @@ function Form (props) {
 
     },[orderForm])
 
+    const validateChange = event =>{
+        yup.reach(formSchema, event.target.name)
+        .validate(event.target.value)
+        .then(valid =>{
+            setErrors({
+                ...errors, [event.target.name] : ""
+            });
+        })
+        .catch(error =>{
+            setErrors({
+                ...errors, [event.target.name] : error.errors[0]
+            })
+        })
+    }
 
 
-
-    const handlechanges = event =>{
-    setOrderForm({...orderForm, [event.target.name]: event.target.value});
-    console.log(orderForm);
-    };
+    const handleChanges = event =>{
+    //     console.log(orderForm);
+    // setOrderForm({...orderForm, [event.target.name]: event.target.value});
+    event.persist();
+    const newOrderForm = {
+        ...orderForm, [event.target.name] : event.target.type ===
+        "checkbox" ? event.target.checked : event.target.value
+    }
+    validateChange(event);
+    setOrderForm(newOrderForm);
+};
     const submitOrder = event => {
         event.preventDefault();
-        props.placeNewOrder(orderForm)
-        setOrderForm({name:"", pizza_size:"", toppings:"", special_instructions:""})
+        console.log("order placed")
+        
         
     
     };
@@ -59,18 +95,19 @@ function Form (props) {
     type="text" 
     id="name" 
     name="name"
-    onChange={ handlechanges }
+    onChange={ handleChanges }
     value={orderForm.name}
     />
+    {errors.name.length > 2 ? <p className="error">
+    {errors.name}</p> : null}
     </label>
 
-    
-    
-   
     <label htmlFor="pizza_size">
-        Choose your pizza size
-    <select id="pizza_size" name="pizza_size"
-    onChange={ handlechanges }>
+    Choose your pizza size
+    <select 
+    id="pizza_size" 
+    name="pizza_size"
+    onChange={ handleChanges }>
     <option value="small">Small</option>   
     <option value="medium">Medium</option>
     <option value="large">Large</option>
@@ -80,38 +117,51 @@ function Form (props) {
 
     
     Choose you toppings
-    <label htmlFor="ham">
-        Ham
-        <input type= "checkbox" 
-        name="ham" checked={orderForm.ham}
-        onChange={ handlechanges }/>
+    <label htmlFor="ham" className= "ham">
+    Ham
+    <input 
+    type= "checkbox" 
+    name="ham" 
+    checked={orderForm.ham}
+    onChange={ handleChanges }/>
     </label>
-    <label htmlFor="pineapple">
-        Pineapple
-        <input type= "checkbox" 
-        name="pineapple" checked={orderForm.pineapple}  
-        onChange={ handlechanges }/>
+
+    <label htmlFor="pineapple"className= "pineapple">
+    Pineapple
+    <input 
+    type= "checkbox" 
+    name="pineapple" 
+    checked={orderForm.pineapple}  
+    onChange={ handleChanges }/>
     </label>
-    <label htmlFor="sausage">
-        Sausage
-        <input type= "checkbox" 
-        name="sausage" checked={orderForm.pineapple}
-        onChange={ handlechanges }/>
+
+    <label htmlFor="sausage" className= "sausage">
+    Sausage
+    <input 
+    type= "checkbox" 
+    name="sausage" 
+    checked={orderForm.sausage}
+    onChange={ handleChanges }/>
     </label>
-    <label htmlFor="pepperoni">
-        Pepperoni
-        <input type= "checkbox" 
-        name="pepperoni" checked={orderForm.pepperoni}
-        onChange={ handlechanges }/>
+
+    <label htmlFor="pepperoni" className= "pepperoni">
+    Pepperoni
+    <input type= "checkbox" 
+    name="pepperoni" 
+    checked={orderForm.pepperoni}
+    onChange={ handleChanges }/>
     </label>
     
-     <label htmlFor="special_instructions">
-         Special Instructions
-        <textarea id="special_instructions"
-         name="special_instructions" 
-          onChange={ handlechanges }
-          value= {orderForm.special_instructions}  />
-        </label> 
+    <label htmlFor="special_instructions">
+    Special Instructions
+    <textarea 
+    id="special_instructions"
+    name="special_instructions" 
+    onChange={ handleChanges }
+    value= {orderForm.special_instructions}/>
+    {errors.special_instructions.length > 2 ? (<p className="error">
+    {errors.special_instructions}</p>) :null}
+    </label> 
         
     
     
