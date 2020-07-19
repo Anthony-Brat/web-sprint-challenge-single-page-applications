@@ -33,7 +33,7 @@ function Form (props) {
 const [orderForm, setOrderForm] = useState({
 name:"",
 pizza_size:"",
-toppings:"",
+// toppings:"",
 // ham:"",
 // pineapple:"",
 // sausage: "",
@@ -43,7 +43,7 @@ special_instructions:""
 
 const[errors, setErrors] = useState({
 name:"",
-toppings:"",
+// toppings:"",
 // ham:"",
 // pineapple:"",
 // sausage: "",
@@ -138,10 +138,10 @@ Choose your pizza size
 id="pizza_size" 
 name="pizza_size"
 onChange={ handleChanges }>
-<option value="small">Small</option>   
-<option value="medium">Medium</option>
-<option value="large">Large</option>
-<option value="xlarge">XLarge</option>
+<option value="Small">Small</option>   
+<option value="Medium">Medium</option>
+<option value="Large">Large</option>
+<option value="Xlarge">XLarge</option>
 </select>
 </label>
 
@@ -189,7 +189,7 @@ id="special_instructions"
 name="special_instructions" 
 onChange={ handleChanges }
 value= {orderForm.special_instructions}/>
-{errors.special_instructions.length > 0 ? (<p className="error">
+{errors.special_instructions.length > 4 ? (<p className="error">
 {errors.special_instructions}</p>) :null}
 </label> 
 
