@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from "yup";
 import axios from 'axios';
+import { Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 
 const formSchema = yup.object().shape({
@@ -116,6 +118,16 @@ const submitOrder = event => {
 
 
 return (
+    <div>
+    <div className="header">
+            <nav className = "nav-links">
+                <Link to="/">Home</Link>
+                <Link to= "/">Menu</Link>
+                <Link to="/pizza">Order</Link>
+                <Link to="/">Deals</Link>
+                <Link to="/">Careers</Link>
+            </nav>
+             </div>
 <div className="placed-order">
 <form onSubmit={submitOrder}>
 
@@ -196,8 +208,9 @@ value= {orderForm.special_instructions}/>
 <pre>{JSON.stringify(post, null, 2)}</pre>  
 
 
-<button disabled={buttonDisabled}>Add to Order</button>
+<Button disabled={buttonDisabled} color="success">Add to Order</Button>
 </form>
+</div>
 </div>
 );
 }

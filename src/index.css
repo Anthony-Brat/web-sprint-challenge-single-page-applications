@@ -11,8 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 32px;
+}
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  width: 
+}
+.nav-links a {
+  text-decoration: none;
+  color: #761c1c;
+  font-weight: bold;
+  margin-right: 8px;
+}
 
+.nav-links a:last-of-type {
+  margin-right: 0;
+}
 
+.nav-links a.active {
+  border-bottom: 1px solid #1c5d76;
+}
+.home-page{
+  display: flex;
+  flex-direction : column ;
+  align-items: center;
+  width: 90%;
+
+}
 
 form  {
   display: flex;
@@ -43,28 +75,6 @@ textarea {
   font-size: 1.4rem;
   letter-spacing: 0.5px;
   background-color: rgb(216, 212, 210);
-}
-button {
-  width: 150px;
-  display: inline-block;
-  padding: 8px 11px;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  border: 0;
-  border-radius: 3px;
-  letter-spacing: 2px;
-  outline: none;
-  background-color:#4dd0e1 ;
-  background-image: linear-gradient(to right, #4dd0e1, #1ee7e2);
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-button:hover {
-  background-image: none;
-  background-color: #e1b24d;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
 
